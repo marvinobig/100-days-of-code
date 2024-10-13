@@ -19,8 +19,19 @@ def dashed_line(dash_length, distance):
         ttl.forward(dash_length)
     ttl.down()
 
-dashed_line(5, 10)
-square(100)
+def rectangle(size):
+    for i in range(4):
+        if i == 1 or i == 3:
+            ttl.forward(size)
+        else:
+            ttl.forward(size * 2)
+
+        ttl.right(90)
+
+
+# dashed_line(5, 10)
+# square(100)
+rectangle(100)
 ttl_screen = Screen()
 ttl_screen.exitonclick()
 
