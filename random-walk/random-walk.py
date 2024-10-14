@@ -13,7 +13,8 @@ rnd_walk = Turtle()
 rnd_walk_screen = Screen()
 
 rnd_walk.shape('circle')
-rnd_walk.pensize(10)
+rnd_walk.pensize(20)
+rnd_walk.speed(10)
 rnd_walk_screen.title("Random Walk")
 rnd_walk_screen.setup(WIDTH, HEIGHT)
 
@@ -31,7 +32,7 @@ def check_boundary(turtle):
         turtle.setheading(90)  # Move up
 
 
-for walks in range(randint(50, 250)):
+for walks in range(randint(100, 350)):
     colours = (randint(0, 255), randint(0, 255), randint(0, 255))
 
     rnd_walk.color(colours)
