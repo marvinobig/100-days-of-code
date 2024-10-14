@@ -1,8 +1,8 @@
 from turtle import Turtle, Screen, colormode
-from random import randint
+from random import randint, choice
 
 
-DIRECTIONS = [-90, 90]
+DIRECTIONS = [0, 90, 180, 270]
 FORWARD_STEPS = 60
 WIDTH, HEIGHT = 720, 720
 BOUNDARY_X = WIDTH // 2 - 10  # Screen boundary for X - pen width
@@ -36,7 +36,7 @@ for walks in range(randint(100, 350)):
     colours = (randint(0, 255), randint(0, 255), randint(0, 255))
 
     rnd_walk.color(colours)
-    rnd_walk.right(DIRECTIONS[randint(0, 1)])
+    rnd_walk.setheading(choice(DIRECTIONS))
     check_boundary(rnd_walk)
 
     rnd_walk.forward(FORWARD_STEPS)
