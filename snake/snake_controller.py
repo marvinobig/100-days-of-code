@@ -1,0 +1,2 @@
+class SnakeController:
+    pass
