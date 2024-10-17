@@ -1,7 +1,7 @@
 import time
 from turtle import Turtle, Screen
 from random import randint
-from snake_controller import SnakeController
+from snake import Snake
 
 # Screen size
 WIDTH, HEIGHT = 720, 720
@@ -12,11 +12,13 @@ snake_screen.setup(WIDTH, HEIGHT)
 snake_screen.title("Snake")
 snake_screen.bgcolor("black")
 snake_screen.tracer(0)
+snake_screen.listen()
 
 # Configure snake default body
 segment_positions = [(0, 0), (-20, 0), (-40, 0)]
 snake_segments = []
 playing = True
+snake_controls = Snake(segment_positions[0], snake_screen, WIDTH, HEIGHT)
 
 for segment_position in segment_positions:
     segment = Turtle("square")
@@ -35,6 +37,12 @@ while playing:
         snake_segments[seg_num].goto(new_xcor, new_ycor)
 
     snake_segments[0].forward(20)
+
+# Control events
+snake_screen.onkeypress(snake_controls.up, "Up")
+snake_screen.onkeypress(snake_controls.down, "Down")
+snake_screen.onkeypress(snake_controls.left, "Left")
+snake_screen.onkeypress(snake_controls.right, "Right")
 
 # Configure snake food
 food_position = (randint(-WIDTH // 2, HEIGHT // 2), randint(-WIDTH // 2, HEIGHT // 2))
