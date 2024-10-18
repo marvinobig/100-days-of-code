@@ -12,9 +12,25 @@ def generate_food(food):
     food.xcor()
     food.goto(food_position)
 
-def snake_food_collision(snake, food, generate_food_function):
+def snake_food_collision(snake, food, generate_food_function, grow_body_func, snake_segs):
     if snake.distance(food) < 20:
         generate_food_function(food)
+        grow_body_func(snake_segs)
+
+def generate_body(snake_segs, seg_positions):
+    for segment_position in seg_positions:
+        segment = Turtle("square")
+        segment.color("White")
+        segment.penup()
+        segment.goto(segment_position)
+        snake_segs.append(segment)
+
+def grow_body(snake_segs):
+        segment = Turtle("square")
+        segment.color("White")
+        segment.penup()
+        segment.goto(snake_segments[-1].position())
+        snake_segs.append(segment)
 
 # Screen size
 WIDTH, HEIGHT = 720, 720
@@ -35,14 +51,10 @@ generate_food(snake_food)
 # Configure snake default body
 segment_positions = [(0, 0), (-20, 0), (-40, 0)]
 snake_segments = []
-playing = True
 
-for segment_position in segment_positions:
-    segment = Turtle("square")
-    segment.color("White")
-    segment.penup()
-    segment.goto(segment_position)
-    snake_segments.append(segment)
+generate_body(snake_segments, segment_positions)
+
+playing = True
 
 while playing:
     snake_screen.update()
@@ -54,7 +66,7 @@ while playing:
         snake_segments[seg_num].goto(new_xcor, new_ycor)
 
     snake_segments[0].forward(20)
-    snake_food_collision(snake_segments[0], snake_food, generate_food)
+    snake_food_collision(snake_segments[0], snake_food, generate_food, grow_body, snake_segments)
 
     # Control events
     snake_controls = Snake(snake_segments[0], snake_screen, WIDTH, HEIGHT)
