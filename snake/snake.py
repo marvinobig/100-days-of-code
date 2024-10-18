@@ -32,9 +32,13 @@ class Snake:
 
         if x > boundary_x:
             self.snake_head.setheading(180)  # Move left
+            self.snake_screen.update()
         elif x < -boundary_x:
             self.snake_head.setheading(0)  # Move right
+            self.snake_screen.update()
         elif y > boundary_y:
             self.snake_head.setheading(270)  # Move down
+            self.snake_screen.update()
         elif y < -boundary_y:
             self.snake_head.setheading(90)  # Move up
+            self.snake_screen.update()
