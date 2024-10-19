@@ -1,44 +1,54 @@
+from turtle import Turtle
+from random import randint
+
+
 class Snake:
-    def __init__(self, snake_head, snake_screen, screen_width, screen_height):
-        self.snake_head = snake_head
+    segment_positions = [(0, 0), (-20, 0), (-40, 0)]
+    snake_segments = []
+    WIDTH, HEIGHT = 720, 720
+
+    def __init__(self, snake_screen):
         self.snake_screen = snake_screen
-        self.screen_width = screen_width
-        self.screen_height = screen_height
 
-    def up(self):
-        self.snake_head.setheading(90)
-        self.check_boundary()
-        self.snake_screen.update()
-
-    def down(self):
-        self.snake_head.setheading(270)
-        self.check_boundary()
-        self.snake_screen.update()
-
-    def left(self):
-        self.snake_head.setheading(180)
-        self.check_boundary()
-        self.snake_screen.update()
-
-    def right(self):
-        self.snake_head.setheading(0)
-        self.check_boundary()
-        self.snake_screen.update()
-
-    def check_boundary(self):
-        x, y = self.snake_head.xcor(), self.snake_head.ycor()
-        boundary_x = self.screen_width // 2
-        boundary_y = self.screen_height // 2
-
-        if x > boundary_x:
-            self.snake_head.setheading(180)  # Move left
+    def turn_up(self):
+        if int(self.snake_segments[0].heading()) != 270:
+            self.snake_segments[0].setheading(90)
             self.snake_screen.update()
-        elif x < -boundary_x:
-            self.snake_head.setheading(0)  # Move right
+
+    def turn_down(self):
+        if int(self.snake_segments[0].heading()) != 90:
+            self.snake_segments[0].setheading(270)
             self.snake_screen.update()
-        elif y > boundary_y:
-            self.snake_head.setheading(270)  # Move down
+
+    def turn_left(self):
+        if int(self.snake_segments[0].heading()) != 0:
+            self.snake_segments[0].setheading(180)
             self.snake_screen.update()
-        elif y < -boundary_y:
-            self.snake_head.setheading(90)  # Move up
+
+    def turn_right(self):
+        if int(self.snake_segments[0].heading()) != 180:
+            self.snake_segments[0].setheading(0)
             self.snake_screen.update()
+
+    def generate_body(self):
+        for segment_position in self.segment_positions:
+            segment = Turtle("square")
+            segment.color("White")
+            segment.penup()
+            segment.goto(segment_position)
+            self.snake_segments.append(segment)
+
+    def grow_body(self, snake_segments):
+        segment = Turtle("square")
+        segment.color("White")
+        segment.penup()
+        segment.goto(snake_segments[-1].position())
+        snake_segments.append(segment)
+
+    def generate_food(self, food):
+        food_position = (randint(-self.WIDTH // 2, self.HEIGHT // 2), randint(-self.WIDTH // 2, self.HEIGHT // 2))
+        food.shape("circle")
+        food.color("green")
+        food.penup()
+        food.xcor()
+        food.goto(food_position)
