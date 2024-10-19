@@ -9,7 +9,7 @@ class Collision(Snake):
             self.grow_body(self.snake_segments)
 
     def snake_body_collision(self):
-        for segment in range(1, len(self.snake_segments) - 1):
+        for segment in range(1, len(self.snake_segments)):
             if self.snake_segments[0].distance(self.snake_segments[segment]) < 20:
                 return True
 
