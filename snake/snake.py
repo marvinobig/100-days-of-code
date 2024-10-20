@@ -46,9 +46,20 @@ class Snake:
         snake_segments.append(segment)
 
     def generate_food(self, food):
-        food_position = (randint(-self.WIDTH // 2, self.HEIGHT // 2), randint(-self.WIDTH // 2, self.HEIGHT // 2))
+        left_boundary = (-self.WIDTH  // 2) + 20
+        up_boundary = (self.HEIGHT // 2) - 20
+
+        food_position = (randint(left_boundary, up_boundary), randint(left_boundary, up_boundary))
         food.shape("circle")
         food.color("green")
         food.penup()
         food.xcor()
         food.goto(food_position)
+
+    def game_over(self):
+        end_game = Turtle()
+        end_game.clear()
+        end_game.penup()
+        end_game.color('white')
+        # end_game.setpos(0,0)
+        end_game.write("Game Over",align='center', font=('Helvetica', 40, 'bold'))

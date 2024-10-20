@@ -9,8 +9,20 @@ class Collision(Snake):
             self.grow_body(self.snake_segments)
 
     def snake_body_collision(self):
-        for segment in range(1, len(self.snake_segments)):
-            if self.snake_segments[0].distance(self.snake_segments[segment]) < 20:
+        for segment in self.snake_segments[1:]:
+            if self.snake_segments[0].distance(segment) < 10:
                 return True
+
+        return False
+
+    def snake_wall_collision(self):
+        left, right = -(self.WIDTH // 2) + 20, (self.WIDTH // 2) - 20
+        up, down = (self.HEIGHT // 2) - 20, -(self.HEIGHT // 2) + 20
+        snake_head = self.snake_segments[0]
+
+        if snake_head.xcor() < left or snake_head.xcor() > right:
+            return True
+        elif snake_head.ycor() > up or snake_head.ycor() < down:
+            return True
 
         return False

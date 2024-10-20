@@ -4,9 +4,6 @@ from snake import Snake
 from collision import Collision
 from score import Score
 
-# TODO - implement OOP
-# TODO - implement collision class
-# TODO - implement score class
 
 # Configure screen
 snake_screen = Screen()
@@ -30,9 +27,8 @@ snake.generate_body()
 scoreboard = Score(snake_screen)
 score = Turtle(visible=False)
 
-playing = True
 
-while playing:
+while True:
     snake_screen.update()
     time.sleep(0.1)
 
@@ -49,6 +45,11 @@ while playing:
     collision.snake_food_collision(snake_food, scoreboard.increment)
 
     if collision.snake_body_collision():
+        snake.game_over()
+        break
+
+    if collision.snake_wall_collision():
+        snake.game_over()
         break
 
     # Control events
