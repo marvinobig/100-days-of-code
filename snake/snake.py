@@ -10,6 +10,14 @@ class Snake:
     def __init__(self, snake_screen):
         self.snake_screen = snake_screen
 
+    def move(self):
+        for seg_num in range(len(self.snake_segments) - 1, 0, -1):
+            new_xcor = self.snake_segments[seg_num - 1].xcor()
+            new_ycor = self.snake_segments[seg_num - 1].ycor()
+            self.snake_segments[seg_num].goto(new_xcor, new_ycor)
+
+        self.snake_segments[0].forward(20)
+
     def turn_up(self):
         if int(self.snake_segments[0].heading()) != 270:
             self.snake_segments[0].setheading(90)
@@ -56,10 +64,9 @@ class Snake:
         food.xcor()
         food.goto(food_position)
 
-    def game_over(self):
-        end_game = Turtle()
-        end_game.clear()
-        end_game.penup()
-        end_game.color('white')
-        # end_game.setpos(0,0)
-        end_game.write("Game Over",align='center', font=('Helvetica', 40, 'bold'))
+    def reset(self):
+        for segment in self.snake_segments:
+            segment.goto(self.WIDTH * 2, self.HEIGHT * 2)
+
+        self.snake_segments.clear()
+        self.generate_body()
